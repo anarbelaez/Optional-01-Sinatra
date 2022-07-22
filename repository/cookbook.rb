@@ -28,6 +28,12 @@ class Cookbook
     save_csv
   end
 
+  def update(index, attributes = {})
+    recipe = @recipes[index]
+    recipe.save(attributes)
+    save_csv
+  end
+
   def remove_recipe(index)
     @recipes.delete_at(index)
     save_csv

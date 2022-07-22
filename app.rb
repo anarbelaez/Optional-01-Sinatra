@@ -4,12 +4,12 @@ require "pry-byebug"
 require "better_errors"
 require_relative "repository/cookbook.rb"
 require_relative "model/recipe.rb"
-
 set :method_override, true
 
 configure :development do
   use BetterErrors::Middleware
   BetterErrors.application_root = File.expand_path('..', __FILE__)
+  use Rack::MethodOverride
 end
 
 # get "/" do
@@ -47,7 +47,10 @@ post '/recipe/store' do
   description = params[:description]
   prep_time = params[:prep_time]
   rating = params[:rating]
-  attributes = { name: name, description: description, prep_time: prep_time, rating: rating }
+  attributes = { name: name,
+                 description: description,
+                 prep_time: prep_time,
+                 rating: rating }
   recipe = Recipe.new(attributes)
   cookbook.add_recipe(recipe)
   redirect('/')
@@ -67,13 +70,13 @@ get '/recipe/edit/:id' do
   erb :edit
 end
 
-put '/recipe/update/' do
+put '/recipe/:id' do
   cookbook
-  index = params[:id].to_i
-  recipe = cookbook.find(index)
-  recipe.name = params[:name]
-  # @recipe.description = params[:description]
-  # @recipe.prep_time = params[:prep_time]
-  # @recipe.rating = params[:rating]
+  @index = params[:id].to_i
+  attributes = { name: params[:name],
+                 description: params[:description],
+                 prep_time: params[:prep_time],
+                 rating: params[:rating] }
+  cookbook.update(@index, attributes)
   redirect('/')
 end
