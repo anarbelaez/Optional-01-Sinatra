@@ -78,3 +78,7 @@ put '/recipe/mark/:id' do
   cookbook.mark_recipe(index)
   redirect('/')
 end
+
+get '/import' do
+  erb :import
+end
