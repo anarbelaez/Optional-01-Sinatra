@@ -1,0 +1,22 @@
+<div class="col-sm-6 container-fluid">
+<p class="fs-5 text">Let's create a new recipe!</p>
+<form action="/recipe/store" method="POST">
+  <div class="mb-3">
+    <label for="recipe_name" class="form-label">Name</label>
+    <input name="name" type="text" class="form-control" id="recipe_name">
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea class="form-control" type="text" id="description" rows="4"></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="prep_time" class="form-label">Preparation time</label>
+    <input name="prep_time" type="text" class="form-control" id="prep_time">
+  </div>
+  <div class="mb-3">
+    <label for="rating" class="form-label">Rating</label>
+    <input name="rating" type="text" class="form-control" id="prep_time">
+  </div>
+  <button type="submit" class="btn btn-primary">New recipe!</button>
+</form>
+</div>
