@@ -4,27 +4,18 @@ require "pry-byebug"
 require "better_errors"
 require_relative "repository/cookbook.rb"
 require_relative "model/recipe.rb"
-set :method_override, true
+# set :method_override, true
 
 configure :development do
   use BetterErrors::Middleware
   BetterErrors.application_root = File.expand_path('..', __FILE__)
-  use Rack::MethodOverride
+  # use Rack::MethodOverride
 end
 
+# Hot to inherit templates!
 # get "/" do
 #   @usernames = [ "ssaunier", "Papillard" ]
 #   erb :index, :layout => :lay
-# end
-
-# get "/about" do
-#   erb :about
-# end
-
-# # Uso de parametros
-# get "/team/:username" do
-#   puts params[:username]
-#   "The username is #{params[:username]}"
 # end
 
 def cookbook
@@ -78,5 +69,12 @@ put '/recipe/:id' do
                  prep_time: params[:prep_time],
                  rating: params[:rating] }
   cookbook.update(@index, attributes)
+  redirect('/')
+end
+
+put '/recipe/mark/:id' do
+  cookbook
+  index = params[:id].to_i
+  cookbook.mark_recipe(index)
   redirect('/')
 end

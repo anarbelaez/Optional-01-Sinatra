@@ -28,7 +28,10 @@
         </td>
         <td>
           <% status = recipe.status == false ? "🔘" : "✅" %>
-          <button class="btn" title="Mark/Unmark"><%= status %></button>
+          <form action="/recipe/mark/<%=index%>" method="POST">
+            <input type='hidden' name='_method' value='PUT'/>
+            <button type='submit' title="Delete" class="btn" title="Mark/Unmark"><%= status %></button>
+          </form>
         </td>
         <td>
           <form action="/recipe/delete/<%=index%>" method="POST">
